@@ -1,17 +1,17 @@
 APP_PLATFORM := android-19
 
-ifneq ($(READIUM_SKIPARM),true)
+APP_ABI :=
 
-APP_ABI := armeabi-v7a
+ifneq ($(READIUM_SKIPARM),true)
+APP_ABI += armeabi-v7a
+endif
 
 ifneq ($(READIUM_SKIPX86),true)
 APP_ABI += x86
 endif
 
-else
-
-APP_ABI := x86
-
+ifneq ($(READIUM_SKIPARM64),true)
+APP_ABI += arm64-v8a
 endif
 
 ifeq ($(READIUM_CLANG),true)

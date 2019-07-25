@@ -8,7 +8,7 @@ buildscript {
         Properties properties = new Properties()
         properties.load(rootProject.file('local.properties').newDataInputStream())
 
-        def ndkClang = properties.getProperty('readium.ndk_clang', "false")
+        def ndkClang = properties.getProperty('readium.ndk_clang', "true")
         ndkClang = (ndkClang == "true") ? true : false;
         rootProject.ext.set('readium_ndk_clang', ndkClang)
 //        def ndk_clang = (rootProject.hasProperty("readium_ndk_clang") && rootProject.readium_ndk_clang)
@@ -25,6 +25,10 @@ buildscript {
         rootProject.ext.set('readium_ndk_skipARM', ndkSkipARM)
 //        def ndk_skipARM = (rootProject.hasProperty("readium_ndk_skipARM") && rootProject.readium_ndk_skipARM)
 //        if (ndk_skipARM) environment 'READIUM_SKIPARM', 'true'
+
+        def ndkSkipARM64 = properties.getProperty('readium.ndk_skipARM64', "false")
+        ndkSkipARM64 = (ndkSkipARM64 == "true") ? true : false;
+        rootProject.ext.set('readium_ndk_skipARM64', ndkSkipARM64)
 
         def ndkExperimental = properties.getProperty('readium.ndk_experimental', "false")
         ndkExperimental = (ndkExperimental == "true") ? true : false;

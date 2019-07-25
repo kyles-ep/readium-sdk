@@ -2,6 +2,7 @@ apply plugin: 'com.android.model.native'
 
 def ndk_skipX86 = (rootProject.hasProperty("readium_ndk_skipX86") && rootProject.readium_ndk_skipX86)
 def ndk_skipARM = (rootProject.hasProperty("readium_ndk_skipARM") && rootProject.readium_ndk_skipARM)
+def ndk_skipARM64 = (rootProject.hasProperty("readium_ndk_skipARM64") && rootProject.readium_ndk_skipARM64)
 def ndk_clang = (rootProject.hasProperty("readium_ndk_clang") && rootProject.readium_ndk_clang)
 def ndk_experimental = (rootProject.hasProperty("readium_ndk_experimental") && rootProject.readium_ndk_experimental)
 
@@ -207,6 +208,18 @@ model {
                         ])
                         cppFlags.add("-I${ndkDirIncludesASM_X86}".toString())
                         CFlags.add("-I${ndkDirIncludesASM_X86}".toString())
+                    }
+                }
+
+            if (!ndk_skipARM64)
+                create("arm64") {
+                    ndk.with {
+                        abiFilters.add("arm64-v8a")
+                        ldFlags.addAll([
+                            "-L${file("./obj/local/arm64")}".toString()
+                        ])
+                        cppFlags.add("-I${ndkDirIncludesASM_ARM64}".toString())
+                        CFlags.add("-I${ndkDirIncludesASM_ARM64}".toString())
                     }
                 }
         } //productFlavors
